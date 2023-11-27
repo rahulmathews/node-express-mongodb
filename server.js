@@ -1,13 +1,8 @@
 const express = require("express");
-const cors = require("cors");
 
 const app = express();
 
-var corsOptions = {
-  origin: "http://localhost:8081"
-};
-
-app.use(cors(corsOptions));
+require("dotenv").config();
 
 // parse requests of content-type - application/json
 app.use(express.json());
@@ -19,25 +14,30 @@ const db = require("./app/models");
 db.mongoose
   .connect(db.url, {
     useNewUrlParser: true,
-    useUnifiedTopology: true
+    useUnifiedTopology: true,
   })
   .then(() => {
     console.log("Connected to the database!");
   })
-  .catch(err => {
+  .catch((err) => {
     console.log("Cannot connect to the database!", err);
     process.exit();
   });
 
 // simple route
 app.get("/", (req, res) => {
-  res.json({ message: "Welcome to bezkoder application." });
+  res.json({ message: "Welcome to Anonymous application." });
 });
 
-require("./app/routes/turorial.routes")(app);
+require("./app/routes/users.routes")(app);
 
 // set port, listen for requests
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}.`);
+});
+
+app.use(function (err, req, res, next) {
+  console.log("Error....", err);
+  return res.sendStatus(500);
 });
