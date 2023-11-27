@@ -10,8 +10,6 @@ exports.create = async (req, res, next) => {
   try {
     const awsResp = await aws.registerUser({ firstName, email, password });
 
-    console.log(awsResp);
-
     const hashedPassword = await hash(password, 10);
     // Create a User
     const user = new User({
@@ -45,8 +43,6 @@ exports.login = async (req, res, next) => {
 
   try {
     const awsResp = await aws.authenticateUser({ email, password });
-
-    console.log(awsResp);
 
     return res.send({
       accessToken: awsResp.accessToken,

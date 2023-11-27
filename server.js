@@ -1,4 +1,5 @@
 const express = require("express");
+const cors = require("cors");
 
 const app = express();
 
@@ -6,6 +7,8 @@ require("dotenv").config();
 
 // parse requests of content-type - application/json
 app.use(express.json());
+
+app.use(cors());
 
 // parse requests of content-type - application/x-www-form-urlencoded
 app.use(express.urlencoded({ extended: true }));
