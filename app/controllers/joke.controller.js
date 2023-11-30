@@ -37,8 +37,7 @@ exports.findAll = async (req, res, next) => {
     })
     .catch((err) => {
       res.status(500).send({
-        message:
-          err.message || "Some error occurred while retrieving tutorials.",
+        message: err.message || "Some error occurred while retrieving jokes.",
       });
     });
 };
@@ -54,9 +53,7 @@ exports.findOne = async (req, res) => {
       else res.send(data);
     })
     .catch((err) => {
-      res
-        .status(500)
-        .send({ message: "Error retrieving Tutorial with id=" + id });
+      res.status(500).send({ message: "Error retrieving joke with id=" + id });
     });
 };
 

@@ -34,6 +34,10 @@ app.get("/", (req, res) => {
 
 require("./app/routes/users.routes")(app);
 require("./app/routes/jokes.routes")(app);
+require("./app/routes/views.routes")(app);
+require("./app/routes/upvotes.routes")(app);
+require("./app/routes/downvotes.routes")(app);
+require("./app/routes/reports.routes")(app);
 
 app.use(function (err, req, res, next) {
   console.log("Error....", err);

@@ -15,16 +15,16 @@ module.exports = (app) => {
   router.get("/", jwt_val.default(), users.findAll);
 
   // Retrieve a single User with id
-  router.get("/:id", users.findOne);
+  router.get("/:id", jwt_val.default(), users.findOne);
 
   // Update a User with id
-  router.put("/:id", users.update);
+  router.put("/:id", jwt_val.default(), users.update);
 
   // Delete a User with id
-  router.delete("/:id", users.delete);
+  router.delete("/:id", jwt_val.default(), users.delete);
 
   // Create a new User
-  router.delete("/", users.deleteAll);
+  router.delete("/", jwt_val.default(), users.deleteAll);
 
   app.use("/api/users", router);
 };

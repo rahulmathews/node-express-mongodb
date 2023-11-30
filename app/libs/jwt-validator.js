@@ -58,8 +58,8 @@ exports.default = () => {
           jwt.verify(token, pem, (err, decoded) => {
             if (err) {
               return res
-                .status(200)
-                .json({ status: 0, message: "Token validation failed" });
+                .status(401)
+                .json({ message: "Token validation failed" });
             }
             req.user = decoded;
             console.log("JWT Validation passed");
