@@ -1,3 +1,5 @@
+const s3 = require("../libs/aws-s3.js");
+
 module.exports = (app) => {
   const jokes = require("../controllers/joke.controller.js");
 
@@ -6,22 +8,22 @@ module.exports = (app) => {
   var router = require("express").Router();
 
   // Create a new Joke
-  router.post("/", jwt_val.default(), jokes.create);
+  router.post("/", s3.uploadS3.single("file"), jokes.create);
 
   // Retrieve all jokes
-  router.get("/", jwt_val.default(), jokes.findAll);
+  router.get("/", jokes.findAll);
 
   // Retrieve a single Joke with id
-  router.get("/:id", jwt_val.default(), jokes.findOne);
+  router.get("/:id", jokes.findOne);
 
   // Update a Joke with id
-  router.put("/:id", jwt_val.default(), jokes.update);
+  router.put("/:id", jokes.update);
 
   // Delete a Joke with id
-  router.delete("/:id", jwt_val.default(), jokes.delete);
+  router.delete("/:id", jokes.delete);
 
   // Create a new Joke
-  router.delete("/", jwt_val.default(), jokes.deleteAll);
+  router.delete("/", jokes.deleteAll);
 
-  app.use("/api/jokes", router);
+  app.use("/api/jokes", jwt_val.default(), router);
 };

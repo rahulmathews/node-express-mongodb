@@ -8,6 +8,7 @@ exports.create = async (req, res, next) => {
     // Create a Joke
     const joke = new Joke({
       content,
+      s3Url: req.file.location,
       createdBy: req.user.username,
     });
 

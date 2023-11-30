@@ -6,7 +6,7 @@ const { hash } = require("bcrypt");
 
 // Create and Save a new User
 exports.create = async (req, res, next) => {
-  const { email, firstName, phone, password } = req.body;
+  const { email, firstName, lastName, phone, password } = req.body;
   try {
     const awsResp = await aws.registerUser({ firstName, email, password });
 
@@ -15,6 +15,8 @@ exports.create = async (req, res, next) => {
     const user = new User({
       email,
       phone,
+      firstName,
+      lastName,
       userId: awsResp.userSub,
       password: hashedPassword,
       isEmailVerified: true,
@@ -56,7 +58,6 @@ exports.login = async (req, res, next) => {
 // Retrieve all Users from the database.
 exports.findAll = async (req, res, next) => {
   const name = req.query.name;
-  console.log("User", req.user);
   var condition = name
     ? { name: { $regex: new RegExp(name), $options: "i" } }
     : {};

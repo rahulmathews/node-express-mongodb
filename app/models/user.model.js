@@ -1,15 +1,14 @@
 module.exports = (mongoose) => {
   var schema = mongoose.Schema(
     {
-      type: String,
-      userId: String,
-      email: String,
+      type: { type: String, default: "USER" },
+      userId: { type: String, unique: true },
+      email: { type: String, unique: true },
+      firstName: String,
+      lastName: String,
       phone: Number,
       password: String,
-      isEmailVerified: Boolean,
-      isPhoneVerified: Boolean,
     },
-
     { timestamps: true }
   );
 

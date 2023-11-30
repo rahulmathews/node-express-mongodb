@@ -5,13 +5,11 @@ const request = require("request");
 exports.default = () => {
   return (req, res, next) => {
     const token = req.headers.authorization.split("Bearer ")[1];
-    console.log("Token...", token);
 
     const decodedJwt = jwt.decode(token, {
       complete: true,
     });
 
-    console.log(decodedJwt);
     if (!decodedJwt) {
       return res
         .status(200)
