@@ -34,7 +34,6 @@ exports.default = () => {
       },
       (error, response, body) => {
         if (!error && response.statusCode === 200) {
-          //console.log(body);
           pems = {};
           var keys = body["keys"];
           for (var i = 0; i < keys.length; i++) {

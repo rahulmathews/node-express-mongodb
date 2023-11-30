@@ -1,5 +1,6 @@
 const db = require("../models");
 const Downvote = db.downvotes;
+const Joke = db.jokes;
 
 // Create and Save a new Downvote
 exports.create = async (req, res, next) => {
@@ -14,7 +15,14 @@ exports.create = async (req, res, next) => {
     // Save Downvote in the database
     Downvote.findOneAndUpdate(query, {}, { upsert: true, new: true })
       .then((data) => {
-        res.send(data);
+        return Joke.findOneAndUpdate(
+          { _id: jokeId },
+          { $inc: { downvotes: 1 } },
+          { upsert: true, new: true }
+        );
+      })
+      .then((data) => {
+        return res.send(data);
       })
       .catch((err) => {
         res.status(500).send({

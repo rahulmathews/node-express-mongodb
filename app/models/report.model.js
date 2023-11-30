@@ -2,6 +2,7 @@ module.exports = (mongoose) => {
   var schema = mongoose.Schema(
     {
       jokeId: { type: mongoose.Schema.Types.ObjectId, ref: "Joke" },
+      message: String,
       createdBy: String,
     },
     { timestamps: true }

@@ -46,9 +46,12 @@ exports.login = async (req, res, next) => {
   try {
     const awsResp = await aws.authenticateUser({ email, password });
 
+    const user = await User.findOne({ userId: awsResp.user.sub });
+
     return res.send({
       accessToken: awsResp.accessToken,
       refreshToken: awsResp.refreshToken,
+      user,
     });
   } catch (err) {
     next(err);

@@ -1,20 +1,29 @@
 const db = require("../models");
 const Report = db.reports;
+const Joke = db.jokes;
 
 // Create and Save a new Report
 exports.create = async (req, res, next) => {
-  const { jokeId } = req.body;
+  const { jokeId, message } = req.body;
   try {
     // Create a Report
     const query = {
       jokeId,
+      message,
       createdBy: req.user.username,
     };
 
     // Save Report in the database
     Report.findOneAndUpdate(query, {}, { upsert: true, new: true })
       .then((data) => {
-        res.send(data);
+        return Joke.findOneAndUpdate(
+          { _id: jokeId },
+          { $inc: { reports: 1 } },
+          { upsert: true, new: true }
+        );
+      })
+      .then((data) => {
+        return res.send(data);
       })
       .catch((err) => {
         res.status(500).send({

@@ -55,6 +55,7 @@ exports.authenticateUser = async (authLoginUserDto) => {
         resolve({
           accessToken: result.getAccessToken().getJwtToken(),
           refreshToken: result.getRefreshToken().getToken(),
+          user: result.getIdToken().decodePayload(),
         });
       },
       onFailure: (err) => {
