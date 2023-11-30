@@ -62,9 +62,7 @@ exports.findOne = async (req, res) => {
   };
   Upvote.findOne(query)
     .then((data) => {
-      if (!data)
-        res.status(404).send({ message: "Not found Upvote with id " + id });
-      else res.send(data);
+      return res.send(data || {});
     })
     .catch((err) => {
       res

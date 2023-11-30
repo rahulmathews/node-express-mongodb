@@ -12,7 +12,7 @@ exports.create = async (req, res, next) => {
     };
 
     // Save Downvote in the database
-    Downvote.findOneAndUpdate(query, {}, { upset: true, new: true })
+    Downvote.findOneAndUpdate(query, {}, { upsert: true, new: true })
       .then((data) => {
         res.send(data);
       })
@@ -52,9 +52,7 @@ exports.findOne = async (req, res) => {
 
   Downvote.findOne(query)
     .then((data) => {
-      if (!data)
-        res.status(404).send({ message: "Not found Downvote with id " + id });
-      else res.send(data);
+      res.send(data || {});
     })
     .catch((err) => {
       res

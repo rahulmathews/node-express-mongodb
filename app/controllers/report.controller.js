@@ -12,7 +12,7 @@ exports.create = async (req, res, next) => {
     };
 
     // Save Report in the database
-    Report.findOneAndUpdate(query, {}, { upset: true, new: true })
+    Report.findOneAndUpdate(query, {}, { upsert: true, new: true })
       .then((data) => {
         res.send(data);
       })
@@ -51,9 +51,7 @@ exports.findOne = async (req, res) => {
 
   Report.findOne(query)
     .then((data) => {
-      if (!data)
-        res.status(404).send({ message: "Not found Report with id " + id });
-      else res.send(data);
+      res.send(data || {});
     })
     .catch((err) => {
       res

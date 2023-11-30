@@ -60,11 +60,9 @@ exports.findAll = async (req, res, next) => {
 exports.findOne = async (req, res) => {
   const id = req.params.id;
 
-  View.findById(id)
+  View.findOne(id)
     .then((data) => {
-      if (!data)
-        res.status(404).send({ message: "Not found View with id " + id });
-      else res.send(data);
+      res.send(data);
     })
     .catch((err) => {
       res.status(500).send({ message: "Error retrieving View with id=" + id });
