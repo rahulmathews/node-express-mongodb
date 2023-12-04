@@ -48,6 +48,12 @@ exports.login = async (req, res, next) => {
 
     const user = await User.findOne({ userId: awsResp.user.sub });
 
+    if (user.status === "NEW") {
+      return res.status(500).send({
+        message: err.message || "Some error occurred while creating the User.",
+      });
+    }
+
     return res.send({
       accessToken: awsResp.accessToken,
       refreshToken: awsResp.refreshToken,

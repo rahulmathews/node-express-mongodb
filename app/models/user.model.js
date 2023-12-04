@@ -2,7 +2,11 @@ module.exports = (mongoose) => {
   var schema = mongoose.Schema(
     {
       type: { type: String, default: "USER" },
-      status: { type: String, default: "ACTIVE" },
+      status: {
+        type: String,
+        default: "NEW",
+        enum: ["NEW", "APPROVE", "ACTIVE"],
+      },
       userId: { type: String, unique: true },
       email: { type: String, unique: true },
       firstName: String,

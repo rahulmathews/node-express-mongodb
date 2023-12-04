@@ -17,7 +17,7 @@ exports.create = async (req, res, next) => {
       .then((data) => {
         return Joke.findOneAndUpdate(
           { _id: jokeId },
-          { $inc: { downvotes: 1 } },
+          { $inc: { upvotes: -1 } },
           { upsert: true, new: true }
         );
       })
